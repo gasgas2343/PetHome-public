@@ -1,0 +1,55 @@
+# =====================
+# Backend - Spring Boot
+# =====================
+# Maven
+**/target/
+**/build/
+**/.mvn/wrapper/maven-wrapper.jar
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+logs/
+
+# =====================
+# Frontend - Vue / Vite
+# =====================
+# Node
+**/node_modules/
+**/dist/
+**/dist-ssr/
+**/coverage/
+
+# npm / yarn / pnpm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# =====================
+# Local configuration & OS
+# =====================
+*.bak
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# 移除其他不相關的實驗專案資料夾
+labboot-ajax/
+labvue-front/

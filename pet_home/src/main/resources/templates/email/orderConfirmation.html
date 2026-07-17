@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>毛起來 - 訂單成立通知</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial,
+                         "PingFang TC", "Microsoft JhengHei", sans-serif;
+            background-color: #f5efe6;
+            margin: 0; padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #fff8f0;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #e8d9c4;
+        }
+        .header {
+            background-color: #c9a96e;
+            padding: 30px 24px;
+            text-align: center;
+            color: #ffffff;
+        }
+        .header .brand    { font-size: 24px; font-weight: bold; letter-spacing: 2px; }
+        .header .tagline  { font-size: 12px; opacity: 0.85; margin-top: 4px; }
+        .header .title    { font-size: 20px; font-weight: bold; margin-top: 14px; }
+        .content { padding: 32px 28px; color: #3d2e1e; line-height: 1.7; }
+        .greeting { font-size: 16px; font-weight: bold; color: #3d2e1e; margin-bottom: 6px; }
+        .intro    { font-size: 13px; color: #7a6148; margin-bottom: 20px; }
+        .badge-success {
+            display: inline-block;
+            background-color: #eef6e8; color: #4a7c2f;
+            padding: 4px 16px; border-radius: 20px;
+            font-size: 12px; font-weight: bold;
+            margin-bottom: 22px;
+        }
+        /* 資訊卡 */
+        .info-card {
+            background-color: #fffaf4;
+            border: 1px solid #e8d9c4;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 22px;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 9px 0;
+            border-bottom: 1px dashed #e8d9c4;
+            font-size: 13px;
+        }
+        .info-row:last-child { border-bottom: none; }
+        .info-label { color: #9a7d5e; white-space: nowrap; margin-right: 12px; }
+        .info-value { color: #3d2e1e; font-weight: bold; text-align: right; }
+        /* 商品明細表格 */
+        .section-title {
+            font-size: 13px; font-weight: bold;
+            color: #3d2e1e; margin-bottom: 10px;
+        }
+        .items-table {
+            width: 100%; border-collapse: collapse;
+            background-color: #fffaf4;
+            border: 1px solid #e8d9c4;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 22px;
+            font-size: 13px;
+        }
+        .items-table th {
+            background-color: #f5ede0;
+            color: #9a7d5e;
+            padding: 8px 14px;
+            font-weight: normal;
+            text-align: left;
+        }
+        .items-table th.right, .items-table td.right { text-align: right; }
+        .items-table th.center, .items-table td.center { text-align: center; }
+        .items-table td {
+            padding: 10px 14px;
+            border-top: 1px dashed #e8d9c4;
+            color: #3d2e1e;
+        }
+        .item-spec { font-size: 11px; color: #9a7d5e; margin-top: 2px; }
+        /* 金額小計 */
+        .amount-card {
+            background-color: #fffaf4;
+            border: 1px solid #e8d9c4;
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 22px;
+            font-size: 13px;
+        }
+        .amount-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            color: #9a7d5e;
+        }
+        .amount-row span:last-child { color: #3d2e1e; }
+        .amount-row.discount span   { color: #4a7c2f; }
+        .amount-final {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 12px;
+            margin-top: 8px;
+            border-top: 1px solid #c9a96e;
+        }
+        .amount-final .label { font-size: 14px; font-weight: bold; color: #3d2e1e; }
+        .amount-final .value { font-size: 16px; font-weight: bold; color: #b07d2e; }
+        /* 注意事項 */
+        .notice {
+            font-size: 12px; color: #9a7d5e; line-height: 1.7;
+            background-color: #f5ede0;
+            border-radius: 8px; padding: 12px 14px;
+        }
+        /* Footer */
+        .footer {
+            background-color: #f0e6d6;
+            padding: 18px 24px;
+            text-align: center;
+            border-top: 1px solid #e8d9c4;
+            font-size: 12px; color: #9a7d5e;
+        }
+        .footer p { margin: 4px 0; }
+    </style>
+</head>
+<body>
+<div class="email-container">
+
+    <!-- Header -->
+    <div class="header">
+        <div class="brand">毛起來 PetShop</div>
+        <div class="tagline">陪伴・毛孩・好好生活</div>
+        <div class="title">訂單成立通知</div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+        <div class="greeting">親愛的 <span th:text="${data.customerName}">王小明</span>，你好！</div>
+        <div class="intro">感謝您的訂購！您的付款已成功，我們將盡快為您處理出貨事宜。</div>
+
+        <div class="badge-success">✓ 付款成功</div>
+
+        <!-- 訂單基本資訊 -->
+        <div class="info-card">
+            <div class="info-row">
+                <span class="info-label">訂單編號</span>
+                <span class="info-value" th:text="${data.orderNo}">ORD-20260629-0001</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">付款單號</span>
+                <span class="info-value" th:text="${data.paymentNo}">PAY-2026062900123</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">收件人</span>
+                <span class="info-value" th:text="${data.customerName}">王小明</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">聯絡電話</span>
+                <span class="info-value" th:text="${data.recipientPhone}">0912-345-678</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">收件地址</span>
+                <span class="info-value" th:text="${data.shippingAddress}">台北市大安區忠孝東路四段 100 號</span>
+            </div>
+        </div>
+
+        <!-- 商品明細 -->
+        <div class="section-title">商品明細</div>
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th>品名</th>
+                    <th class="center">數量</th>
+                    <th class="right">金額</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item : ${data.items}">
+                    <td>
+                        <div th:text="${item.productName}">貓咪乾糧</div>
+                        <div class="item-spec" th:if="${item.spec != null and !item.spec.isBlank()}"
+                             th:text="${item.spec}">雞肉口味 / 1.5kg</div>
+                    </td>
+                    <td class="center" th:text="${'× ' + item.quantity}">× 2</td>
+                    <td class="right" th:text="${'NT$ ' + #numbers.formatDecimal(item.subtotal, 1, 0)}">NT$ 798</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 金額總計 -->
+        <div class="amount-card">
+            <div class="amount-row">
+                <span>商品小計</span>
+                <span th:text="${'NT$ ' + #numbers.formatDecimal(data.totalAmount, 1, 0)}">NT$ 1,148</span>
+            </div>
+            <!-- 有使用優惠券才顯示 -->
+            <div class="amount-row discount" th:if="${data.hasDiscount}">
+                <span>優惠券折扣<th:block th:if="${data.couponCode != null}">（<span th:text="${data.couponCode}">WELCOME100</span>）</th:block></span>
+                <span th:text="${'− NT$ ' + #numbers.formatDecimal(data.discountAmount, 1, 0)}">− NT$ 100</span>
+            </div>
+            <div class="amount-final">
+                <span class="label">實付金額</span>
+                <span class="value" th:text="${'NT$ ' + #numbers.formatDecimal(data.finalAmount, 1, 0)}">NT$ 1,048</span>
+            </div>
+        </div>
+
+        <!-- 注意事項 -->
+        <div class="notice">
+            如需查看訂單詳情或申請退換貨，請登入會員中心。若有任何問題，歡迎聯絡線上客服，我們將竭誠為您服務。
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>此信件為系統自動發送，請勿直接回覆</p>
+        <p>© 2026 毛起來 PetShop. All Rights Reserved.</p>
+    </div>
+
+</div>
+</body>
+</html>

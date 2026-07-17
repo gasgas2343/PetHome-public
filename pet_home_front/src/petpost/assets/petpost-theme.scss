@@ -1,0 +1,522 @@
+/* ==========================================================
+   PetPost Theme
+   中文註解：此檔只調整論壇 / 寵物 / 時間軸 / 論壇後台模組的視覺風格。
+   重點：
+   1. 所有樣式都限制在 .petpost-scope 內，避免影響會員 / 商城 / 洗澡模組。
+   2. 背景只使用 src/petpost/assets/images/forum-bg.png。
+   3. 移除舊版右上狗、左下貓、Cloudinary 浮水印圖片。
+   4. 將 admin-layout 改為 forum-admin-page，符合目前 ForumAdminLayout.vue。
+========================================================== */
+
+:root {
+  --petpost-bg: #fff8ee;
+  --petpost-bg-soft: #f7eadb;
+  --petpost-card: #fffdf8;
+  --petpost-primary: #8a5a3c;
+  --petpost-primary-dark: #5f3d29;
+  --petpost-accent: #78a083;
+  --petpost-accent-dark: #4f7d62;
+  --petpost-honey: #d9a441;
+  --petpost-text: #2f241d;
+  --petpost-muted: #897669;
+  --petpost-border: #ead8c4;
+  --petpost-danger: #c75345;
+  --petpost-shadow: 0 18px 42px rgba(95, 61, 41, 0.13);
+  --petpost-soft-shadow: 0 10px 26px rgba(95, 61, 41, 0.09);
+
+  /* 中文註解：論壇專用背景圖，請放在 src/petpost/assets/images/forum-bg.png */
+  --petpost-forum-bg: url('@/petpost/assets/images/forum-bg.png');
+}
+
+/* ==========================================================
+   Page Scope
+========================================================== */
+
+.petpost-scope {
+  min-height: 100vh;
+  color: var(--petpost-text);
+  background:
+    linear-gradient(rgba(255, 250, 243, 0.48), rgba(255, 250, 243, 0.48)),
+    var(--petpost-forum-bg);
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* 中文註解：只鎖定 PetPost 頁面外層，不套用到組員模組。 */
+.petpost-scope .community-home-page,
+.petpost-scope .community-page,
+.petpost-scope .forum-home,
+.petpost-scope .pet-page,
+.petpost-scope .timeline-page,
+.petpost-scope .notification-page,
+.petpost-scope .product-page,
+.petpost-scope .role-permission-page,
+.petpost-scope .forum-admin-page,
+.petpost-scope .pc-page,
+.petpost-scope .petpost-photo-page,
+.petpost-scope .post-create-page,
+.petpost-scope .post-detail-page,
+.petpost-scope .post-update-page,
+.petpost-scope .pet-profile-page {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--petpost-text) !important;
+}
+
+/* 中文註解：關閉舊版浮水印圖，避免和 forum-bg.png 重複。 */
+.petpost-scope .community-home-page::before,
+.petpost-scope .community-page::before,
+.petpost-scope .forum-home::before,
+.petpost-scope .pet-page::before,
+.petpost-scope .timeline-page::before,
+.petpost-scope .notification-page::before,
+.petpost-scope .product-page::before,
+.petpost-scope .role-permission-page::before,
+.petpost-scope .forum-admin-page::before,
+.petpost-scope .pc-page::before,
+.petpost-scope .petpost-photo-page::before,
+.petpost-scope .post-create-page::before,
+.petpost-scope .post-detail-page::before,
+.petpost-scope .post-update-page::before,
+.petpost-scope .pet-profile-page::before,
+.petpost-scope .community-home-page::after,
+.petpost-scope .community-page::after,
+.petpost-scope .forum-home::after,
+.petpost-scope .pet-page::after,
+.petpost-scope .timeline-page::after,
+.petpost-scope .notification-page::after,
+.petpost-scope .product-page::after,
+.petpost-scope .role-permission-page::after,
+.petpost-scope .forum-admin-page::after,
+.petpost-scope .pc-page::after,
+.petpost-scope .petpost-photo-page::after,
+.petpost-scope .post-create-page::after,
+.petpost-scope .post-detail-page::after,
+.petpost-scope .post-update-page::after,
+.petpost-scope .pet-profile-page::after {
+  content: none !important;
+}
+
+.petpost-scope .post-create-page,
+.petpost-scope .post-detail-page,
+.petpost-scope .post-update-page,
+.petpost-scope .pet-profile-page {
+  min-height: calc(100vh - 80px);
+  padding-top: 34px !important;
+  padding-bottom: 72px !important;
+}
+
+/* ==========================================================
+   Text
+========================================================== */
+
+.petpost-scope .community-home-shell,
+.petpost-scope .community-shell,
+.petpost-scope .timeline-shell,
+.petpost-scope .pet-page .container,
+.petpost-scope .notification-page .container,
+.petpost-scope .product-page .container,
+.petpost-scope .pc-page .container {
+  color: var(--petpost-text);
+}
+
+.petpost-scope .kicker,
+.petpost-scope .eyebrow,
+.petpost-scope .timeline-type,
+.petpost-scope .timeline-date,
+.petpost-scope .card-meta,
+.petpost-scope .notification-time {
+  color: var(--petpost-honey) !important;
+}
+
+.petpost-scope .desc,
+.petpost-scope .hint,
+.petpost-scope .upload-hint,
+.petpost-scope .state-text,
+.petpost-scope .form-copy,
+.petpost-scope .timeline-content,
+.petpost-scope .notification-message,
+.petpost-scope .text-secondary {
+  color: var(--petpost-muted) !important;
+}
+
+/* ==========================================================
+   Cards / Panels / Tables
+========================================================== */
+
+.petpost-scope .hero-banner,
+.petpost-scope .forum-card,
+.petpost-scope .post-card,
+.petpost-scope .pet-card,
+.petpost-scope .timeline-card,
+.petpost-scope .popup-card,
+.petpost-scope .notification-panel,
+.petpost-scope .notification-list,
+.petpost-scope .product-card,
+.petpost-scope .role-panel,
+.petpost-scope .permission-panel,
+.petpost-scope .pc-card,
+.petpost-scope .card,
+.petpost-scope .modal-card,
+.petpost-scope .rule-dialog,
+.petpost-scope .pet-form-card,
+.petpost-scope .image-source-box,
+.petpost-scope .cloud-image-box,
+.petpost-scope .default-grid,
+.petpost-scope .list-group-item,
+.petpost-scope .table {
+  background: rgba(255, 253, 248, 0.94) !important;
+  border: 1px solid var(--petpost-border) !important;
+  border-radius: 22px !important;
+  box-shadow: var(--petpost-soft-shadow) !important;
+}
+
+.petpost-scope .hero-banner,
+.petpost-scope .forum-card,
+.petpost-scope .post-card,
+.petpost-scope .pet-card,
+.petpost-scope .timeline-card,
+.petpost-scope .notification-panel,
+.petpost-scope .product-card,
+.petpost-scope .role-panel,
+.petpost-scope .permission-panel,
+.petpost-scope .pc-card {
+  box-shadow: var(--petpost-shadow) !important;
+}
+
+.petpost-scope .post-card,
+.petpost-scope .pet-card,
+.petpost-scope .timeline-card,
+.petpost-scope .product-card,
+.petpost-scope .entry-card,
+.petpost-scope .admin-entry-card {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.petpost-scope .post-card:hover,
+.petpost-scope .pet-card:hover,
+.petpost-scope .timeline-card:hover,
+.petpost-scope .product-card:hover,
+.petpost-scope .entry-card:hover,
+.petpost-scope .admin-entry-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 48px rgba(95, 61, 41, 0.16) !important;
+}
+
+/* ==========================================================
+   Buttons
+========================================================== */
+
+.petpost-scope .btn,
+.petpost-scope .pc-btn,
+.petpost-scope .submit-btn,
+.petpost-scope .confirm-btn,
+.petpost-scope .save-btn,
+.petpost-scope .cancel-btn,
+.petpost-scope .edit-btn,
+.petpost-scope .delete-btn,
+.petpost-scope .timeline-action-btn,
+.petpost-scope .read-btn,
+.petpost-scope .read-all-btn,
+.petpost-scope .refresh-btn,
+.petpost-scope .default-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 38px;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-radius: 999px !important;
+  font-size: 14px;
+  font-weight: 800 !important;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.petpost-scope .btn:hover {
+  transform: translateY(-1px);
+}
+
+.petpost-scope .btn-sm {
+  min-height: 32px;
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+.petpost-scope .btn-primary,
+.petpost-scope .btn-success,
+.petpost-scope .btn-primary-pet,
+.petpost-scope .pc-btn-primary,
+.petpost-scope .submit-btn,
+.petpost-scope .confirm-btn,
+.petpost-scope .save-btn {
+  background: var(--petpost-accent) !important;
+  border-color: var(--petpost-accent) !important;
+  color: #fff !important;
+  box-shadow: 0 10px 22px rgba(120, 160, 131, 0.22) !important;
+}
+
+.petpost-scope .btn-primary:hover,
+.petpost-scope .btn-success:hover,
+.petpost-scope .btn-primary-pet:hover,
+.petpost-scope .pc-btn-primary:hover,
+.petpost-scope .submit-btn:hover,
+.petpost-scope .confirm-btn:hover,
+.petpost-scope .save-btn:hover {
+  background: var(--petpost-accent-dark) !important;
+  border-color: var(--petpost-accent-dark) !important;
+}
+
+.petpost-scope .btn-secondary,
+.petpost-scope .btn-warning,
+.petpost-scope .cancel-btn,
+.petpost-scope .ghost-btn {
+  background: rgba(217, 164, 65, 0.18) !important;
+  border-color: rgba(217, 164, 65, 0.42) !important;
+  color: var(--petpost-primary-dark) !important;
+}
+
+.petpost-scope .btn-outline-primary,
+.petpost-scope .btn-outline-secondary,
+.petpost-scope .btn-outline-warning,
+.petpost-scope .btn-outline-danger,
+.petpost-scope .category-tab,
+.petpost-scope .tag,
+.petpost-scope .tag-option,
+.petpost-scope .post-tag {
+  border-color: rgba(138, 90, 60, 0.28) !important;
+  color: var(--petpost-primary) !important;
+  background: rgba(255, 253, 248, 0.78) !important;
+}
+
+.petpost-scope .btn-outline-primary:hover,
+.petpost-scope .btn-outline-secondary:hover,
+.petpost-scope .btn-outline-warning:hover,
+.petpost-scope .btn-outline-danger:hover,
+.petpost-scope .category-tab:hover,
+.petpost-scope .category-tab.active,
+.petpost-scope .tag:hover,
+.petpost-scope .tag-option:hover,
+.petpost-scope .tag-option.active,
+.petpost-scope .post-tag:hover,
+.petpost-scope .btn.active {
+  background: rgba(217, 164, 65, 0.18) !important;
+  border-color: rgba(217, 164, 65, 0.48) !important;
+  color: var(--petpost-primary-dark) !important;
+}
+
+.petpost-scope .btn-danger,
+.petpost-scope .delete-btn,
+.petpost-scope .danger {
+  background: var(--petpost-danger) !important;
+  border-color: var(--petpost-danger) !important;
+  color: #fff !important;
+}
+
+.petpost-scope .back-link,
+.petpost-scope .back-btn,
+.petpost-scope .back-home-link,
+.petpost-scope .back-community-link {
+  color: var(--petpost-primary) !important;
+}
+
+/* ==========================================================
+   Forms / Alerts / Modal
+========================================================== */
+
+.petpost-scope .form-control,
+.petpost-scope .form-select,
+.petpost-scope input,
+.petpost-scope textarea,
+.petpost-scope select {
+  border-color: var(--petpost-border) !important;
+  border-radius: 14px !important;
+  background: rgba(255, 253, 248, 0.96);
+  color: var(--petpost-text);
+}
+
+.petpost-scope .form-control:focus,
+.petpost-scope .form-select:focus,
+.petpost-scope input:focus,
+.petpost-scope textarea:focus,
+.petpost-scope select:focus {
+  border-color: var(--petpost-accent) !important;
+  box-shadow: 0 0 0 4px rgba(120, 160, 131, 0.16) !important;
+}
+
+.petpost-scope .alert {
+  padding: 12px 16px;
+  border: 1px solid var(--petpost-border) !important;
+  border-radius: 18px !important;
+}
+
+.petpost-scope .alert-info,
+.petpost-scope .alert-warning,
+.petpost-scope .alert-secondary {
+  background: rgba(217, 164, 65, 0.12) !important;
+  color: var(--petpost-primary) !important;
+}
+
+.petpost-scope .alert-danger {
+  background: rgba(199, 83, 69, 0.1) !important;
+  color: #9b4037 !important;
+}
+
+.petpost-scope .modal-mask,
+.petpost-scope .rule-mask {
+  background: rgba(47, 36, 29, 0.58) !important;
+  backdrop-filter: none !important;
+  z-index: 99990 !important;
+}
+
+.petpost-scope .modal-card,
+.petpost-scope .rule-dialog {
+  position: relative !important;
+  z-index: 99991 !important;
+  background: #fffaf3 !important;
+  opacity: 1 !important;
+  border: 1px solid var(--petpost-border) !important;
+  border-radius: 26px !important;
+  box-shadow: 0 24px 60px rgba(47, 36, 29, 0.28) !important;
+}
+
+/* ==========================================================
+   Timeline / Image
+========================================================== */
+
+.petpost-scope .timeline-wrapper::before {
+  height: 4px !important;
+  background: linear-gradient(90deg, var(--petpost-honey), var(--petpost-accent)) !important;
+  border-radius: 999px !important;
+}
+
+.petpost-scope .timeline-node .circle {
+  width: 30px !important;
+  height: 30px !important;
+  box-shadow: 0 0 0 6px rgba(120, 160, 131, 0.15) !important;
+}
+
+.petpost-scope .timeline-node .filled-circle,
+.petpost-scope .timeline-node .empty-circle {
+  border-color: var(--petpost-accent) !important;
+}
+
+.petpost-scope .timeline-node .filled-circle {
+  background: var(--petpost-accent) !important;
+}
+
+.petpost-scope .timeline-node .empty-circle {
+  background: #fffaf3 !important;
+}
+
+.petpost-scope .add-text {
+  color: var(--petpost-primary) !important;
+  font-weight: 800 !important;
+}
+
+.petpost-scope .pet-avatar,
+.petpost-scope .post-card-image,
+.petpost-scope .timeline-image,
+.petpost-scope .product-image,
+.petpost-scope .preview-img,
+.petpost-scope .cloud-preview img,
+.petpost-scope .card-img-wrap img {
+  border-radius: 18px !important;
+  box-shadow: 0 10px 20px rgba(95, 61, 41, 0.12);
+}
+
+/* ==========================================================
+   Forum Admin
+========================================================== */
+
+.petpost-scope .forum-admin-page {
+  background:
+    linear-gradient(rgba(255, 250, 243, 0.42), rgba(255, 250, 243, 0.42)),
+    var(--petpost-forum-bg) !important;
+  background-size: cover !important;
+  background-position: center top !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+}
+
+.petpost-scope .admin-sidebar,
+.petpost-scope .forum-admin-sidebar {
+  background: linear-gradient(180deg, #7b563e 0%, #5f3d29 100%) !important;
+}
+
+.petpost-scope .admin-sidebar a.router-link-active,
+.petpost-scope .admin-sidebar a:hover,
+.petpost-scope .forum-admin-sidebar a.router-link-active,
+.petpost-scope .forum-admin-sidebar a:hover {
+  background: rgba(255, 255, 255, 0.18) !important;
+}
+
+/* ==========================================================
+   PetPost scoped Bootstrap-like utilities
+========================================================== */
+
+.petpost-scope .container {
+  width: min(1120px, calc(100% - 40px));
+  margin-inline: auto;
+}
+
+.petpost-scope .row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-inline: -12px;
+}
+
+.petpost-scope [class*='col-'] {
+  padding-inline: 12px;
+}
+
+.petpost-scope .d-flex { display: flex; }
+.petpost-scope .align-items-center { align-items: center; }
+.petpost-scope .align-items-start { align-items: flex-start; }
+.petpost-scope .justify-content-between { justify-content: space-between; }
+.petpost-scope .flex-wrap { flex-wrap: wrap; }
+.petpost-scope .flex-grow-1 { flex-grow: 1; }
+.petpost-scope .gap-2 { gap: 8px; }
+.petpost-scope .gap-3 { gap: 16px; }
+
+.petpost-scope .mt-2 { margin-top: 8px; }
+.petpost-scope .mt-3 { margin-top: 16px; }
+.petpost-scope .mt-4 { margin-top: 24px; }
+.petpost-scope .mb-0 { margin-bottom: 0; }
+.petpost-scope .mb-1 { margin-bottom: 4px; }
+.petpost-scope .mb-2 { margin-bottom: 8px; }
+.petpost-scope .mb-3 { margin-bottom: 16px; }
+.petpost-scope .mb-4 { margin-bottom: 24px; }
+.petpost-scope .me-1 { margin-right: 4px; }
+.petpost-scope .me-2 { margin-right: 8px; }
+.petpost-scope .ms-2 { margin-left: 8px; }
+.petpost-scope .py-4 { padding-top: 24px; padding-bottom: 24px; }
+
+.petpost-scope .text-danger { color: var(--petpost-danger); }
+.petpost-scope .text-primary { color: var(--petpost-primary); }
+.petpost-scope .text-center { text-align: center; }
+.petpost-scope .text-end { text-align: right; }
+
+.petpost-scope .table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.petpost-scope .table th,
+.petpost-scope .table td {
+  padding: 12px;
+  border-bottom: 1px solid rgba(138, 90, 60, 0.12);
+}

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="#B98754">
+
+    <ellipse cx="25" cy="25" rx="10" ry="14"></ellipse>
+    <ellipse cx="50" cy="16" rx="10" ry="14"></ellipse>
+    <ellipse cx="75" cy="25" rx="10" ry="14"></ellipse>
+    <ellipse cx="15" cy="50" rx="10" ry="14"></ellipse>
+
+    <path d="
+        M50 42
+        C25 42 18 62 18 74
+        C18 90 32 95 50 95
+        C68 95 82 90 82 74
+        C82 62 75 42 50 42
+        Z"></path>
+</svg>

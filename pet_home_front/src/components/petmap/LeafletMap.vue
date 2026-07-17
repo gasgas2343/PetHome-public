@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, watch,nextTick } from "vue";
+import { onMounted, watch, nextTick } from "vue";
 import L from "leaflet";
 
 import "leaflet/dist/leaflet.css";
@@ -63,7 +63,7 @@ onMounted(() => {
 });
 
 // 封裝成一個獨立的函式，方便重複呼叫
-  const updateMarkers = async () => {
+const updateMarkers = async () => {
   // 🎯 修正 1：安全檢查，如果 Leaflet 還沒準備好，直接跳出避免報錯
   if (!map || !markerCluster) return;
 
@@ -87,24 +87,24 @@ onMounted(() => {
   const bounds = [];
 
   places.forEach((place) => {
-   if (place.latitude && place.longitude && Number(place.latitude) !== 0 && Number(place.longitude) !== 0) {
+    if (place.latitude && place.longitude && Number(place.latitude) !== 0 && Number(place.longitude) !== 0) {
       const lat = Number(place.latitude);
       const lng = Number(place.longitude);
       bounds.push([lat, lng]);
 
 
-     const marker = L.marker([lat, lng])
-  .bindTooltip(
-    `
+      const marker = L.marker([lat, lng])
+        .bindTooltip(
+          `
     <strong>${place.name}</strong><br>
     ${placeTypeMap[place.placeType] ?? place.placeType}
     `,
-    {
-      direction: "top",
-      offset: [0, -15],
-    }
-  )
-  .bindPopup(`
+          {
+            direction: "top",
+            offset: [0, -15],
+          }
+        )
+        .bindPopup(`
 <div style="min-width:220px">
 
   <h6>${place.name}</h6>
@@ -138,21 +138,21 @@ onMounted(() => {
 </div>
 `);
 
-markerMap.set(place.placeId, marker);
+      markerMap.set(place.placeId, marker);
 
-markerCluster.addLayer(marker);
+      markerCluster.addLayer(marker);
 
-marker.on("popupopen", () => {
-  const btn = document.getElementById(
-    `card-btn-${place.placeId}`
-  );
+      marker.on("popupopen", () => {
+        const btn = document.getElementById(
+          `card-btn-${place.placeId}`
+        );
 
-  if (btn) {
-    btn.onclick = () => {
-      emit("marker-click", place.placeId);
-    };
-  }
-});
+        if (btn) {
+          btn.onclick = () => {
+            emit("marker-click", place.placeId);
+          };
+        }
+      });
     }
   });
 

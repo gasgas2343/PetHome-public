@@ -3,10 +3,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
     <div class="container">
-      <RouterLink
-  to="/"
-  class="navbar-brand brand-logo"
->
+      <RouterLink to="/" class="navbar-brand brand-logo">
         <img src="/logo.png" alt="毛起來" class="logo-image" />
 
         <div>
@@ -17,11 +14,8 @@
       </RouterLink>
 
       <div class="navbar-nav ms-auto">
-        <RouterLink
-          :to="{ name: 'PetMapAdminDashboard' }"
-          class="nav-link"
-        >
-         管理首頁
+        <RouterLink :to="{ name: 'PetMapAdminDashboard' }" class="nav-link">
+          管理首頁
         </RouterLink>
 
         <RouterLink :to="{ name: 'PetMapAdminPlace' }" class="nav-link"> 景點管理 </RouterLink>

@@ -7,13 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.system.petmap.entity.MerchantApplication;
 
 public interface MerchantApplicationRepository
-        extends JpaRepository<
-                MerchantApplication,
-                Integer> {
+                extends JpaRepository<MerchantApplication, Integer> {
 
-    List<MerchantApplication> findByUserId(
-            Long userId);
+        List<MerchantApplication> findByUserId(
+                        Long userId);
 
-    List<MerchantApplication> findByStatus(
-            String status);
+        List<MerchantApplication> findByStatus(
+                        String status);
 }
